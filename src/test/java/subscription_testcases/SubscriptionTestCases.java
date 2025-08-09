@@ -3,22 +3,31 @@ package subscription_testcases;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.pages.BlogPage;
 import org.example.pages.HomePage;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 public class SubscriptionTestCases {
-    @Test
-    public void verifyFullNamePlaceHolderText() throws InterruptedException {
+
+    WebDriver driver;
+
+    @Before
+    public void setUp() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
+
         driver.get("https://www.blink22.com/");
+    }
+
+    @Test
+    public void verifyFullNamePlaceHolderText() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
 
@@ -28,20 +37,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyEmailPlaceHolderText() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyEmailPlaceHolderText() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         //compare
@@ -50,20 +49,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyUserEnterNameInFullNameBox() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyUserEnterNameInFullNameBox() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         blogPage.insertFullName("John smith");
@@ -73,20 +62,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyUserEnterEmailInEmailBox() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyUserEnterEmailInEmailBox() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         blogPage.insertEmail("test@example.com");
@@ -97,20 +76,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyUserSubmitionWithFullNameBoxEmptyFailed() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyUserSubmitionWithFullNameBoxEmptyFailed() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         blogPage.insertEmail("test@example.com");
@@ -122,20 +91,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyUserSubmitionWithEmailBoxEmptyFailed() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyUserSubmitionWithEmailBoxEmptyFailed() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         blogPage.insertFullName("John smith");
@@ -147,20 +106,10 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
-
-        Thread.sleep(2000);
-        driver.quit();
     }
 
     @Test
-    public void verifyUserSubmitionWithInvalidEmailFailed() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
+    public void verifyUserSubmitionWithInvalidEmailFailed() {
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
         blogPage.insertFullName("John smith");
@@ -174,21 +123,14 @@ public class SubscriptionTestCases {
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
 
-        Thread.sleep(2000);
-        driver.quit();
+
     }
 
     @Test
     public void verifyUserSubmitionWithValidData() throws InterruptedException {
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().window().maximize();
-        driver.get("https://www.blink22.com/");
         HomePage homePage = new HomePage(driver);
         BlogPage blogPage = homePage.clickBlogLink();
+        Thread.sleep(2000);
         blogPage.insertFullName("John smith");
         blogPage.insertEmail("test@example.com");
         blogPage.clickOnSubscribe();
@@ -199,9 +141,11 @@ public class SubscriptionTestCases {
 
         //assert
         Assert.assertTrue(actualResult.contains(expectedResult));
+    }
 
+    @After
+    public void tearDown() throws InterruptedException {
         Thread.sleep(2000);
         driver.quit();
     }
-
 }
